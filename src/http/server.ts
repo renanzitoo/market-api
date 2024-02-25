@@ -2,6 +2,7 @@ import fastify from "fastify";
 import { createMarket } from "./routes/create-market";
 import { createProduct } from "./routes/create-product";
 import { getMarket } from "./routes/get-market";
+import { getProduct } from "./routes/get-product";
 
 const app = fastify()
 
@@ -14,3 +15,4 @@ app.listen({
 app.register(createMarket)
 app.register(createProduct)
 app.register(getMarket)
+app.register(getProduct)

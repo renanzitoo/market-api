@@ -1,9 +1,12 @@
 import fastify from "fastify";
-import { createMarket } from "./routes/create-market";
-import { createProduct } from "./routes/create-product";
-import { getMarket } from "./routes/get-market";
-import { getProduct } from "./routes/get-product";
-import { updateMarket } from "./routes/update-market";
+import { createMarket } from "./routes/market/create-market";
+import { createProduct } from "./routes/product/create-product";
+import { getMarket } from "./routes/market/get-market";
+import { getProduct } from "./routes/product/get-product";
+import { updateMarket } from "./routes/market/update-market";
+import { updateProduct } from "./routes/product/update-product";
+import { deleteMarket } from "./routes/market/delete-market";
+import { deleteProduct } from "./routes/product/delete-product";
 
 const app = fastify()
 
@@ -18,3 +21,6 @@ app.register(createProduct)
 app.register(getMarket)
 app.register(getProduct)
 app.register(updateMarket)
+app.register(updateProduct)
+app.register(deleteMarket)
+app.register(deleteProduct)

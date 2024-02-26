@@ -1,6 +1,6 @@
 import z from "zod"
 import { FastifyInstance } from "fastify"
-import { prisma } from "../../lib/prisma"
+import { prisma } from "../../../lib/prisma"
 
 
 export async function createProduct(app: FastifyInstance){
@@ -9,7 +9,7 @@ export async function createProduct(app: FastifyInstance){
         name: z.string(),
         brand: z.string(),
         price: z.number(),
-        marketId: z.string(),   
+        marketId: z.string(),  
       })
 
       const {name, brand, price, marketId} = createProductBody.parse(req.body)
@@ -23,11 +23,7 @@ export async function createProduct(app: FastifyInstance){
         }
       })
 
-      const marketVerification = prisma.market.findUnique({
-        where : {
-          id : marketId
-        }
-      })
+
 
       
       return res.status(201).send({productId : product.id })

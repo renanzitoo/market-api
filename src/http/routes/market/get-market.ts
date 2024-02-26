@@ -1,6 +1,6 @@
 import z from "zod"
 import { FastifyInstance } from "fastify"
-import { prisma } from "../../lib/prisma"
+import { prisma } from "../../../lib/prisma"
 
 export async function getMarket(app:FastifyInstance) {
   app.get('/market/:marketId', async (req, res) => {

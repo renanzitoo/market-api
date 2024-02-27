@@ -21,4 +21,18 @@ model Market {
   name    String
   owner   String
   Product Product[]
+  User    User?     @relation(fields: [userId], references: [id])
+  userId  String?
+}
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  age      Int
+  cpf      String   @unique
+  birthday String
+  email    String   @unique
+  password String
+  isOwner  Boolean
+  Market   Market[]
 }

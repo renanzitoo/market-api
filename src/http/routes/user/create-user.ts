@@ -1,8 +1,9 @@
 import z from "zod";
 import { FastifyInstance } from "fastify";
-import { validate } from "gerador-validador-cpf";
-import  bcrypt, { hash }  from "bcrypt"
+import  bcrypt from "bcrypt"
 import { prisma } from "../../../lib/prisma"
+import { validateCPF } from "../../../utils/validate-cpf";
+import { emailExists } from "../../../utils/validate-email";
 
 
 export async function registerUser(app: FastifyInstance){
@@ -19,34 +20,19 @@ export async function registerUser(app: FastifyInstance){
 
   const {name, age, cpf, birthday, email, password, isOwner} = createUserBody.parse(req.body)
 
-  const saltRounds = 10
+  const validCPF = await validateCPF(cpf)
+  const emailExist = await emailExists(email)
+  console.log(emailExist)
 
-  const validateCpf = validate(cpf)
-  if(!validateCpf) {
-    res.status(400).send({ message: 'CPF is invalid'})
+  if(!validCPF){
+    res.status(400).send({message: 'cpf already in use, or invalid try again'})
   }
-
-  const emailExists = await prisma.user.findUnique({
-    where: {
-      email: email
-    }
-  })
-
-  if(emailExists){
+  if(emailExist){
     res.status(400).send({message: 'email already in use'})
   }
+  
 
-  const cpfExists = await prisma.user.findUnique({
-    where: {
-      cpf: cpf
-    }
-  })
-
-  if(cpfExists){
-    res.status(400).send({message: 'cpf already in use'})
-  }
-
-  const salt = await bcrypt.genSalt(saltRounds)
+  const salt = await bcrypt.genSalt(10)
   const hash = bcrypt.hashSync(password, salt)
 
   const createUser = await prisma.user.create({
@@ -60,6 +46,8 @@ export async function registerUser(app: FastifyInstance){
       isOwner
     }
   })
+
+  res.status(200).send({message: 'user registered', userId: createUser.id})
 })
 
 }

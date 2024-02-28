@@ -13,8 +13,6 @@ export async function loginUser(app: FastifyInstance){
     })
     const {login, password} = userLoginBody.parse(req.body)
 
-    const mySecretKey = 'testapi'
-
     const validateEmail =  await prisma.user.findUnique({
       where: {
         email: login
@@ -31,9 +29,10 @@ export async function loginUser(app: FastifyInstance){
         const payload = {
           name: validateEmail.name,
           email : validateEmail.email,
-          password: validateEmail.password      
+          password: validateEmail.password,
+          isOwner: validateEmail.isOwner    
         }
-        const token = jwt.sign(payload, mySecretKey, {
+        const token = jwt.sign(payload, String(process.env.SECRET_KEY), {
           expiresIn: '1d'
         })
 

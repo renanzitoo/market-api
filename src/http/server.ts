@@ -9,7 +9,7 @@ import { deleteMarket } from "./routes/market/delete-market";
 import { deleteProduct } from "./routes/product/delete-product";
 import { registerUser } from "./routes/user/create-user";
 import { loginUser } from "./routes/user/login-user";
-import { changePassword } from "./routes/user/change-password";
+import 'dotenv/config'
 
 const app = fastify()
 
@@ -29,4 +29,3 @@ app.register(deleteMarket)
 app.register(deleteProduct)
 app.register(registerUser)
 app.register(loginUser)
-app.register(changePassword)

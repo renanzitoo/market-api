@@ -40,10 +40,6 @@ So finally run `npm run dev`
 
 see the GitHub documentation on [how to create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
-## 📷 Image
-
-![image](https://github.com/renanzitoo/challenge-01-nodeJS/assets/91814882/35d2ed60-f9a4-4981-9261-97826d993ee6)
-
 
 ## 🤝 By
 

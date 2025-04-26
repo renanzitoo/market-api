@@ -1,16 +1,11 @@
 import z from "zod";
 import { FastifyInstance } from "fastify";
 import { prisma } from "../../../lib/prisma";
+import { productSchema } from "../../../models/product-model";
 
 export async function updateProduct(app:FastifyInstance){
   app.patch('/product', async (req, res)=>{
-    const createProductBody = z.object({
-      id : z.string(),
-      name : z.string(),
-      brand: z.string(),
-      price: z.number(),
-      marketId: z.string()
-    })
+    const createProductBody = productSchema;
 
     const {id, name, brand, price, marketId} = createProductBody.parse(req.body)
 

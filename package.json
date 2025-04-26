@@ -25,6 +25,7 @@
     "fastify": "^4.26.0",
     "gerador-validador-cpf": "^5.0.2",
     "jsonwebtoken": "^9.0.2",
+    "market-api": "file:",
     "zod": "^3.22.4"
   }
 }

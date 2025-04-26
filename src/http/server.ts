@@ -9,23 +9,27 @@ import { deleteMarket } from "./routes/market/delete-market";
 import { deleteProduct } from "./routes/product/delete-product";
 import { registerUser } from "./routes/user/create-user";
 import { loginUser } from "./routes/user/login-user";
-import 'dotenv/config'
+import { authenticate } from "../plugins/authenticate"; // Importa o middleware
+import 'dotenv/config';
+import { getUserByToken } from "./routes/user/get-user-by-token";
 
-const app = fastify()
+const app = fastify();
 
 app.listen({
   port: 3232
-}).then(()=>{
-  console.log('Server running on port 3232')
-})
+}).then(() => {
+  console.log('Server running on port 3232');
+});
 
-app.register(createMarket)
-app.register(createProduct)
-app.register(getMarket)
-app.register(getProduct)
-app.register(updateMarket)
-app.register(updateProduct)
-app.register(deleteMarket)
-app.register(deleteProduct)
-app.register(registerUser)
-app.register(loginUser)
+app.register(createMarket);
+app.register(createProduct);
+app.register(getMarket);
+app.register(getProduct);
+app.register(updateMarket);
+app.register(updateProduct);
+app.register(deleteMarket);
+app.register(deleteProduct);
+app.register(registerUser);
+app.register(loginUser);
+app.register(getUserByToken);
+app.decorate("authenticate", authenticate);
